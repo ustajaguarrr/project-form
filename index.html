@@ -11,17 +11,17 @@
     :root {
       --bg: #ffffff;
       --bg-secondary: #f7f7f8;
-      --bg-info: #eff6ff;
+      --bg-info: #f0ebfd;
       --text-primary: #111827;
       --text-secondary: #6b7280;
       --text-tertiary: #9ca3af;
-      --text-info: #1d4ed8;
+      --text-info: #6A24E8;
       --text-danger: #dc2626;
       --border: #e5e7eb;
       --radius-sm: 6px;
       --radius-md: 8px;
       --radius-lg: 12px;
-      --accent: #111827;
+      --accent: #6A24E8;
     }
 
     body {
@@ -297,9 +297,19 @@
       transform: translateX(-50%) translateY(0);
     }
 
-    @media (max-width: 480px) {
-      .meta-row { gap: 10px; flex-direction: column; }
-      .card, .header-card { padding: 1.25rem; }
+    @media (max-width: 600px) {
+      body { padding: 16px 12px 48px; }
+      .meta-row { gap: 8px; flex-direction: column; }
+      .card, .header-card { padding: 1.25rem 1rem; }
+      .header-card h2 { font-size: 18px; }
+      .card h3 { font-size: 15px; }
+      input[type="text"],
+      input[type="email"],
+      select,
+      textarea { font-size: 16px; } /* iOS 자동 확대 방지 */
+      button[type="submit"] { width: 100%; justify-content: center; }
+      .submit-row { justify-content: stretch; }
+      #success-screen { padding: 2.5rem 1.25rem; }
     }
   </style>
 </head>
@@ -307,6 +317,11 @@
 <div class="wrapper">
 
   <div id="form-container">
+
+    <!-- Logo -->
+    <div style="margin-bottom: 1.25rem;">
+      <img src="logo.png" alt="요즘IT" style="height: 28px; display: block;" />
+    </div>
 
     <!-- Header -->
     <div class="header-card">
@@ -428,25 +443,22 @@
         <h3>참석 확인 및 동의</h3>
 
         <div class="field">
-          <label class="field-label" for="networking">네트워킹 세션 참여 의사 <span class="required">*</span></label>
-          <select id="networking" name="networking">
-            <option value="">선택해주세요</option>
-            <option value="참여하고 싶다">참여하고 싶다</option>
-            <option value="가능하면 참여, 일정 따라 결정">가능하면 참여, 일정 따라 결정</option>
-            <option value="세미나만 참석하고 귀가">세미나만 참석하고 귀가</option>
-          </select>
-          <div class="field-error" id="err-networking">선택해주세요.</div>
-        </div>
-
-        <div class="field">
           <div class="agree-group">
             <label class="agree-item">
               <input type="checkbox" id="agree-attend" name="agree-attend" />
-              <span>당첨 시 반드시 참석할 수 있습니다. <span class="agree-sub">(노쇼 방지 — 25석 한정)</span></span>
+              <span>당첨 시 꼭 참석해주세요. 부득이하게 참석이 불가능한 경우에는 최대한 빠르게 알려주세요!</span>
             </label>
-            <label class="agree-item">
-              <input type="checkbox" id="agree-privacy" name="agree-privacy" />
-              <span>요즘IT 및 라이너의 행사 안내 목적 개인정보 수집·이용에 동의합니다.</span>
+            <label class="agree-item" style="align-items: flex-start;">
+              <input type="checkbox" id="agree-privacy" name="agree-privacy" style="margin-top: 3px;" />
+              <span>
+                <span style="font-weight: 500;">개인정보 수집·이용 동의 <span class="required">(필수)</span></span>
+                <span style="display: block; margin-top: 6px; font-size: 13px; color: var(--text-secondary); line-height: 1.8; padding: 10px 12px; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                  · 수집 목적: 세미나 신청 접수, 추첨 결과 안내, 행사 운영<br>
+                  · 수집 항목: 이름, 이메일, 소속, 직책<br>
+                  · 보유 기간: 행사 종료 후 3개월 이내 파기
+                </span>
+                <a href="https://auth.wishket.com/terms/privacy" target="_blank" style="display: inline-block; margin-top: 6px; font-size: 12px; color: var(--text-tertiary); text-decoration: underline;">개인정보 처리방침 자세히 보기</a>
+              </span>
             </label>
           </div>
           <div class="field-error" id="err-agree">두 항목 모두 동의해주세요.</div>
@@ -464,7 +476,7 @@
   <div id="success-screen">
     <div class="icon"><i class="ti ti-circle-check"></i></div>
     <h2>신청이 완료되었습니다!</h2>
-    <p>추첨 결과는 5/19 (월) 이전에<br>입력하신 이메일로 개별 안내드립니다.<br><br>감사합니다 :)</p>
+    <p>감사합니다. 추첨 결과는 5/18(월)까지<br>개별적으로 연락드리겠습니다.</p>
   </div>
 
 </div>
@@ -528,9 +540,6 @@
     const motivation = document.getElementById("motivation").value.trim();
     setError("motivation", "err-motivation", !motivation); if (!motivation) ok = false;
 
-    const networking = document.getElementById("networking").value;
-    setError("networking", "err-networking", !networking); if (!networking) ok = false;
-
     const agreeAttend = document.getElementById("agree-attend").checked;
     const agreePrivacy = document.getElementById("agree-privacy").checked;
     const agreeErr = document.getElementById("err-agree");
@@ -573,7 +582,6 @@
       motivation: document.getElementById("motivation").value.trim(),
       question: document.getElementById("question").value.trim(),
       myths: myths.join(", "),
-      networking: document.getElementById("networking").value,
       agreeAttend: document.getElementById("agree-attend").checked ? "동의" : "",
       agreePrivacy: document.getElementById("agree-privacy").checked ? "동의" : "",
       timestamp: new Date().toLocaleString("ko-KR", { timeZone: "Asia/Seoul" }),
