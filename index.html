@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GEO 팩트체크 세미나 — 오프라인 참가 신청</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.x/dist/tabler-icons.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #ffffff;
+      --bg-secondary: #f7f7f8;
+      --bg-info: #eff6ff;
+      --text-primary: #111827;
+      --text-secondary: #6b7280;
+      --text-tertiary: #9ca3af;
+      --text-info: #1d4ed8;
+      --text-danger: #dc2626;
+      --border: #e5e7eb;
+      --radius-sm: 6px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --accent: #111827;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+      background: #f3f4f6;
+      color: var(--text-primary);
+      min-height: 100vh;
+      padding: 32px 16px 64px;
+    }
+
+    .wrapper {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Header card */
+    .header-card {
+      background: var(--bg-secondary);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--bg-info);
+      color: var(--text-info);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: var(--radius-md);
+      margin-bottom: 12px;
+      letter-spacing: 0.02em;
+    }
+
+    .header-card h2 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text-primary);
+    }
+
+    .header-card p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 0.5px solid var(--border);
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .meta-row i {
+      font-size: 14px;
+      vertical-align: -2px;
+      margin-right: 4px;
+    }
+
+    /* Section cards */
+    .card {
+      background: var(--bg);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .card h3 + p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: -12px;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+
+    /* Form fields */
+    .field { margin-bottom: 14px; }
+    .field:last-child { margin-bottom: 0; }
+
+    label.field-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+
+    .required { color: var(--text-danger); }
+    .optional { color: var(--text-tertiary); font-weight: 400; }
+
+    input[type="text"],
+    input[type="email"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 9px 12px;
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 14px;
+      line-height: 1.5;
+      outline: none;
+      transition: border-color 0.15s;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--accent);
+    }
+
+    input.error,
+    select.error,
+    textarea.error {
+      border-color: var(--text-danger);
+    }
+
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%236b7280' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 32px;
+    }
+
+    textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    .field-hint {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      margin-top: 4px;
+    }
+
+    .field-error {
+      font-size: 12px;
+      color: var(--text-danger);
+      margin-top: 4px;
+      display: none;
+    }
+
+    /* Checkboxes */
+    .check-group { display: grid; gap: 8px; font-size: 14px; }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      cursor: pointer;
+      line-height: 1.5;
+    }
+
+    .check-item input[type="checkbox"] {
+      width: 15px;
+      height: 15px;
+      min-width: 15px;
+      margin-top: 3px;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    /* Agree section */
+    .agree-group { display: grid; gap: 6px; font-size: 14px; line-height: 1.7; }
+
+    .agree-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .agree-item input[type="checkbox"] {
+      width: 15px;
+      height: 15px;
+      min-width: 15px;
+      margin-top: 4px;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    .agree-item span { flex: 1; }
+    .agree-sub { font-size: 13px; color: var(--text-secondary); }
+
+    /* Submit button */
+    .submit-row {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 1.25rem;
+    }
+
+    button[type="submit"] {
+      padding: 11px 28px;
+      font-size: 14px;
+      font-weight: 600;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: opacity 0.15s;
+      font-family: inherit;
+    }
+
+    button[type="submit"]:hover { opacity: 0.85; }
+    button[type="submit"]:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* Success screen */
+    #success-screen {
+      display: none;
+      text-align: center;
+      padding: 3rem 2rem;
+      background: var(--bg);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+
+    #success-screen .icon {
+      font-size: 48px;
+      color: #16a34a;
+      margin-bottom: 16px;
+    }
+
+    #success-screen h2 { font-size: 20px; margin-bottom: 8px; }
+    #success-screen p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
+
+    /* Toast */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #1f2937;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 13px;
+      opacity: 0;
+      transition: opacity 0.2s, transform 0.2s;
+      pointer-events: none;
+      z-index: 999;
+      white-space: nowrap;
+    }
+
+    #toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @media (max-width: 480px) {
+      .meta-row { gap: 10px; flex-direction: column; }
+      .card, .header-card { padding: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrapper">
+
+  <div id="form-container">
+
+    <!-- Header -->
+    <div class="header-card">
+      <div class="badge">GEO 팩트체크 세미나</div>
+      <h2>오프라인 참가 신청 (25명 추첨)</h2>
+      <p>소규모의 밀도 높은 교류를 위해 오프라인은 25명으로 제한됩니다. 아래 질문에 답변해주시면, 답변을 참고해 추첨 후 개별 안내드립니다. 작성에는 약 3분이 소요됩니다.</p>
+      <div class="meta-row">
+        <div><i class="ti ti-calendar"></i>5/21 (목) 19:00</div>
+        <div><i class="ti ti-map-pin"></i>라이너 오피스 (홍대)</div>
+        <div><i class="ti ti-clock"></i>신청 마감: 5/18 (일)</div>
+      </div>
+    </div>
+
+    <form id="signup-form" novalidate>
+
+      <!-- Section 1 -->
+      <div class="card">
+        <div class="section-label">Section 1</div>
+        <h3>기본 정보</h3>
+
+        <div class="field">
+          <label class="field-label" for="name">이름 <span class="required">*</span></label>
+          <input type="text" id="name" name="name" placeholder="홍길동" autocomplete="name" />
+          <div class="field-error" id="err-name">이름을 입력해주세요.</div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="email">이메일 <span class="required">*</span></label>
+          <input type="email" id="email" name="email" placeholder="추첨 결과 안내용" autocomplete="email" />
+          <div class="field-error" id="err-email">올바른 이메일 주소를 입력해주세요.</div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="org">소속 회사 / 조직 <span class="required">*</span></label>
+          <input type="text" id="org" name="org" placeholder="" />
+          <div class="field-error" id="err-org">소속을 입력해주세요.</div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="role">직책 / 직무 <span class="required">*</span></label>
+          <input type="text" id="role" name="role" placeholder="예) 마케팅 리더, 콘텐츠 매니저, SEO 담당자" />
+          <div class="field-error" id="err-role">직책/직무를 입력해주세요.</div>
+        </div>
+      </div>
+
+      <!-- Section 2 -->
+      <div class="card">
+        <div class="section-label">Section 2</div>
+        <h3>참가 동기</h3>
+        <p>추첨 시 가장 중요하게 보는 항목입니다. 구체적으로 적어주실수록 좋습니다.</p>
+
+        <div class="field">
+          <label class="field-label" for="geo-status">현재 GEO와 어떤 관계에 있으신가요? <span class="required">*</span></label>
+          <select id="geo-status" name="geo-status">
+            <option value="">선택해주세요</option>
+            <option value="아직 시작 전 — 정보를 수집 중">아직 시작 전 — 정보를 수집 중</option>
+            <option value="도입 검토 중 — 예산 편성을 앞두고 있음">도입 검토 중 — 예산 편성을 앞두고 있음</option>
+            <option value="이미 시작 — 전략을 다듬고 있음">이미 시작 — 전략을 다듬고 있음</option>
+            <option value="이미 운영 중 — 측정·개선 단계">이미 운영 중 — 측정·개선 단계</option>
+            <option value="GEO를 클라이언트에 제공하는 입장">GEO를 클라이언트에 제공하는 입장</option>
+            <option value="기타">기타</option>
+          </select>
+          <div class="field-error" id="err-geo-status">선택해주세요.</div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="motivation">이 세미나에서 가장 얻어가고 싶은 한 가지는 무엇인가요? <span class="required">*</span></label>
+          <textarea id="motivation" name="motivation" rows="3" placeholder="예) GEO 성과 측정 프레임을 구체적으로 알고 싶다 / 콘텐츠 글쓰기 전략을 우리 팀에 적용할 단서를 얻고 싶다"></textarea>
+          <div class="field-error" id="err-motivation">내용을 입력해주세요.</div>
+        </div>
+      </div>
+
+      <!-- Section 3 -->
+      <div class="card">
+        <div class="section-label">Section 3</div>
+        <h3>사전 질문 <span class="optional">(선택)</span></h3>
+        <p>남겨주신 질문은 패널토크에서 익명으로 다뤄질 수 있습니다.</p>
+
+        <div class="field">
+          <label class="field-label" for="question">GEO 관련해서 가장 풀리지 않는 의문이 있다면?</label>
+          <textarea id="question" name="question" rows="3" placeholder="예) LLM 인용 횟수가 늘어도 매출에는 영향이 없는데, 무엇을 KPI로 봐야 할지 모르겠다"></textarea>
+        </div>
+
+        <div class="field">
+          <label class="field-label">시장에서 들은 GEO 통념 중, 진짜인지 의심스러운 것이 있다면? <span class="optional">(복수 선택)</span></label>
+          <div class="check-group">
+            <label class="check-item">
+              <input type="checkbox" name="myths" value='"첫 문장은 무조건 선언적으로 써야 한다"' />
+              <span>"첫 문장은 무조건 선언적으로 써야 한다"</span>
+            </label>
+            <label class="check-item">
+              <input type="checkbox" name="myths" value='"schema.org / JSON-LD 마크업이 GEO의 핵심이다"' />
+              <span>"schema.org / JSON-LD 마크업이 GEO의 핵심이다"</span>
+            </label>
+            <label class="check-item">
+              <input type="checkbox" name="myths" value='"백링크는 GEO에도 SEO만큼 중요하다"' />
+              <span>"백링크는 GEO에도 SEO만큼 중요하다"</span>
+            </label>
+            <label class="check-item">
+              <input type="checkbox" name="myths" value='"인용 빈도가 곧 비즈니스 성과로 이어진다"' />
+              <span>"인용 빈도가 곧 비즈니스 성과로 이어진다"</span>
+            </label>
+            <label class="check-item">
+              <input type="checkbox" name="myths" value='"GEO는 SEO와 별개의 영역이다"' />
+              <span>"GEO는 SEO와 별개의 영역이다"</span>
+            </label>
+            <label class="check-item" id="myth-other-label">
+              <input type="checkbox" name="myths" value="기타" id="myth-other-check" />
+              <span>기타 (아래에 직접 작성)</span>
+            </label>
+            <textarea id="myth-other-text" name="myth-other" rows="2" placeholder="직접 입력해주세요" style="display:none; margin-top:4px;"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 4 -->
+      <div class="card">
+        <div class="section-label">Section 4</div>
+        <h3>참석 확인 및 동의</h3>
+
+        <div class="field">
+          <label class="field-label" for="networking">네트워킹 세션 참여 의사 <span class="required">*</span></label>
+          <select id="networking" name="networking">
+            <option value="">선택해주세요</option>
+            <option value="참여하고 싶다">참여하고 싶다</option>
+            <option value="가능하면 참여, 일정 따라 결정">가능하면 참여, 일정 따라 결정</option>
+            <option value="세미나만 참석하고 귀가">세미나만 참석하고 귀가</option>
+          </select>
+          <div class="field-error" id="err-networking">선택해주세요.</div>
+        </div>
+
+        <div class="field">
+          <div class="agree-group">
+            <label class="agree-item">
+              <input type="checkbox" id="agree-attend" name="agree-attend" />
+              <span>당첨 시 반드시 참석할 수 있습니다. <span class="agree-sub">(노쇼 방지 — 25석 한정)</span></span>
+            </label>
+            <label class="agree-item">
+              <input type="checkbox" id="agree-privacy" name="agree-privacy" />
+              <span>요즘IT 및 라이너의 행사 안내 목적 개인정보 수집·이용에 동의합니다.</span>
+            </label>
+          </div>
+          <div class="field-error" id="err-agree">두 항목 모두 동의해주세요.</div>
+        </div>
+      </div>
+
+      <div class="submit-row">
+        <button type="submit" id="submit-btn">신청 제출</button>
+      </div>
+
+    </form>
+  </div>
+
+  <!-- Success screen -->
+  <div id="success-screen">
+    <div class="icon"><i class="ti ti-circle-check"></i></div>
+    <h2>신청이 완료되었습니다!</h2>
+    <p>추첨 결과는 5/19 (월) 이전에<br>입력하신 이메일로 개별 안내드립니다.<br><br>감사합니다 :)</p>
+  </div>
+
+</div>
+
+<div id="toast"></div>
+
+<script>
+  // ====================================================
+  // 여기에 Google Apps Script 웹 앱 URL을 붙여넣으세요
+  // ====================================================
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzYvrpR2k54UbETZDHYJIwt9eNPXnFQWQf6cBaOFNEm4Lkb4WkJG-SfGvJJPslUq_GG/exec";
+  // ====================================================
+
+  const form = document.getElementById("signup-form");
+  const submitBtn = document.getElementById("submit-btn");
+
+  // 기타 통념 체크박스 토글
+  document.getElementById("myth-other-check").addEventListener("change", function () {
+    document.getElementById("myth-other-text").style.display = this.checked ? "block" : "none";
+  });
+
+  function showToast(msg) {
+    const t = document.getElementById("toast");
+    t.textContent = msg;
+    t.classList.add("show");
+    setTimeout(() => t.classList.remove("show"), 3000);
+  }
+
+  function setError(fieldId, errId, show) {
+    const field = document.getElementById(fieldId);
+    const err = document.getElementById(errId);
+    if (!field || !err) return;
+    if (show) {
+      field.classList.add("error");
+      err.style.display = "block";
+    } else {
+      field.classList.remove("error");
+      err.style.display = "none";
+    }
+  }
+
+  function validate() {
+    let ok = true;
+
+    const name = document.getElementById("name").value.trim();
+    setError("name", "err-name", !name); if (!name) ok = false;
+
+    const email = document.getElementById("email").value.trim();
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    setError("email", "err-email", !emailOk); if (!emailOk) ok = false;
+
+    const org = document.getElementById("org").value.trim();
+    setError("org", "err-org", !org); if (!org) ok = false;
+
+    const role = document.getElementById("role").value.trim();
+    setError("role", "err-role", !role); if (!role) ok = false;
+
+    const geoStatus = document.getElementById("geo-status").value;
+    setError("geo-status", "err-geo-status", !geoStatus); if (!geoStatus) ok = false;
+
+    const motivation = document.getElementById("motivation").value.trim();
+    setError("motivation", "err-motivation", !motivation); if (!motivation) ok = false;
+
+    const networking = document.getElementById("networking").value;
+    setError("networking", "err-networking", !networking); if (!networking) ok = false;
+
+    const agreeAttend = document.getElementById("agree-attend").checked;
+    const agreePrivacy = document.getElementById("agree-privacy").checked;
+    const agreeErr = document.getElementById("err-agree");
+    if (!agreeAttend || !agreePrivacy) {
+      agreeErr.style.display = "block"; ok = false;
+    } else {
+      agreeErr.style.display = "none";
+    }
+
+    return ok;
+  }
+
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    if (!validate()) {
+      showToast("필수 항목을 모두 작성해주세요.");
+      return;
+    }
+
+    if (APPS_SCRIPT_URL === "여기에_URL_입력") {
+      showToast("⚠️ Apps Script URL을 설정해주세요.");
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "제출 중...";
+
+    const myths = Array.from(document.querySelectorAll('input[name="myths"]:checked'))
+      .map(cb => cb.value)
+      .filter(v => v !== "기타");
+    const mythOther = document.getElementById("myth-other-text").value.trim();
+    if (mythOther) myths.push("기타: " + mythOther);
+
+    const payload = {
+      name: document.getElementById("name").value.trim(),
+      email: document.getElementById("email").value.trim(),
+      org: document.getElementById("org").value.trim(),
+      role: document.getElementById("role").value.trim(),
+      geoStatus: document.getElementById("geo-status").value,
+      motivation: document.getElementById("motivation").value.trim(),
+      question: document.getElementById("question").value.trim(),
+      myths: myths.join(", "),
+      networking: document.getElementById("networking").value,
+      agreeAttend: document.getElementById("agree-attend").checked ? "동의" : "",
+      agreePrivacy: document.getElementById("agree-privacy").checked ? "동의" : "",
+      timestamp: new Date().toLocaleString("ko-KR", { timeZone: "Asia/Seoul" }),
+    };
+
+    try {
+      await fetch(APPS_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      document.getElementById("form-container").style.display = "none";
+      document.getElementById("success-screen").style.display = "block";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch (err) {
+      showToast("오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+      submitBtn.disabled = false;
+      submitBtn.textContent = "신청 제출";
+    }
+  });
+</script>
+</body>
+</html>
